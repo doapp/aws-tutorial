@@ -1,0 +1,121 @@
+
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Hello World",
+    "Parameters": {
+        "Prefix": {
+            "Type": "String",
+            "Description": "Prefix of the domain name.  ie: test -> test-<subdomain>.<domain>.com"
+        },
+
+        "Subdomain": {
+            "Type": "String",
+            "Default": "hello",
+            "Description": "Subdomain.  ie: hello -> <prefix>-hello.<domain>.com"
+        },
+
+        "HostedZoneName": {
+            "Type": "String",
+            "Description": "Domain name, ie: doapps.com - nameservers must be pointing to AWS: http://aws.amazon.com/route53/"
+        }
+    },
+
+    "Resources": {
+        "ELB": {
+            "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+            "Properties": {
+                "ConnectionDrainingPolicy": {
+                    "Enabled": true,
+                    "Timeout": 5
+                },
+
+                "CrossZone": true,
+                "AvailabilityZones": [
+                    "us-east-1a",
+                    "us-east-1b"
+                ],
+
+                "HealthCheck": {
+                    "HealthyThreshold": "2",
+                    "Interval": "30",
+                    "Target": "HTTP:81/elb_status.html",
+                    "Timeout": "5",
+                    "UnhealthyThreshold": "4"
+                },
+
+                "Listeners": [
+                    {
+                        "InstancePort": "80",
+                        "LoadBalancerPort": "80",
+                        "Protocol": "HTTP",
+                        "PolicyNames": [
+                            
+                        ]
+                    }
+                ]
+            }
+        },
+
+        "DNS": {
+            "Type": "AWS::Route53::RecordSet",
+            "Properties": {
+                "Type": "A",
+                "HostedZoneName": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "HostedZoneName"
+                            },
+
+                            "."
+                        ]
+                    ]
+                },
+
+                "AliasTarget": {
+                    "DNSName": {
+                        "Fn::GetAtt": [
+                            "ELB",
+                            "DNSName"
+                        ]
+                    },
+
+                    "EvaluateTargetHealth": true,
+                    "HostedZoneId": {
+                        "Fn::GetAtt": [
+                            "ELB",
+                            "CanonicalHostedZoneNameID"
+                        ]
+                    }
+                },
+
+                "Name": {
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "Prefix"
+                            },
+
+                            {
+                                "Fn::Join": [
+                                    ".",
+                                    [
+                                        {
+                                            "Ref": "Subdomain"
+                                        },
+
+                                        {
+                                            "Ref": "HostedZoneName"
+                                        }
+                                    ]
+                                ]
+                            }
+                        ]
+                    ]
+                }
+            }
+        }
+    }
+}

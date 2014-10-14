@@ -1,0 +1,14 @@
+{
+	"name": "hello-world-aws",
+	"description": "Hello Dynamo",
+	"config": 
+	{
+		"vendor-dir": "Vendor"
+	},
+	"minimum-stability": "dev",
+	"require": 
+	{
+		"aws/aws-sdk-php": "2.5.4"
+	},
+	"preferred-install": "dist"
+}
