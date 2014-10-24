@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # install php and nginx
+apt-get update
 apt-get install --assume-yes --force-yes nginx-full php5-fpm php5-cli php5-curl python-pip
 
 # install aws cli
