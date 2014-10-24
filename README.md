@@ -287,7 +287,12 @@ We'll now give the the instance authority to our dynamo table via the profile we
 ![active](https://s3.amazonaws.com/uploads.hipchat.com/15441/59702/k8rwdLb5eaT1NcI/upload.png)
 
 ## installing code
+1. Install the AWS CLI - http://aws.amazon.com/cli/
 1. Create an S3 bucket to hold the code: https://console.aws.amazon.com/s3/home?region=us-east-1
+1. Upload the code to the S3 bucket
+```
+aws s3 cp --recursive webroot_form/ s3://<bucket from above>/aws-tutorial/
+```
 1. Create a new cloudformation stack with the S3 template url below
 https://s3.amazonaws.com/static.doapps.com/cloud_formation/app_install.json
 1. Here's the user data to use
