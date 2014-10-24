@@ -285,3 +285,77 @@ We'll now give the the instance authority to our dynamo table via the profile we
 1. Click "Update"
 1. After the update completes, refresh the page in the browser, you'll now see that the table is active
 ![active](https://s3.amazonaws.com/uploads.hipchat.com/15441/59702/k8rwdLb5eaT1NcI/upload.png)
+
+## installing code
+1. Create an S3 bucket to hold the code: https://console.aws.amazon.com/s3/home?region=us-east-1
+1. Create a new cloudformation stack with the S3 template url below
+https://s3.amazonaws.com/static.doapps.com/cloud_formation/app_install.json
+1. Here's the user data to use
+```
+IyEvYmluL2Jhc2gKCiMgaW5zdGFsbCBwaHAgYW5kIG5naW54CmFwdC1nZXQgaW5zdGFsbCAtLWFzc3VtZS15ZXMgLS1mb3JjZS15ZXMgbmdpbngtZnVsbCBwaHA1LWZwbSBwaHA1LWNsaSBwaHA1LWN1cmwgcHl0aG9uLXBpcAoKIyBpbnN0YWxsIGF3cyBjbGkKcGlwIGluc3RhbGwgYXdzY2xpCgojIGluc3RhbGwgYXV0by1jb21wbGV0ZXIgZm9yIGF3cwplY2hvICJjb21wbGV0ZSAtQyBhd3NfY29tcGxldGVyIGF3cyIgPj4gL3Jvb3QvLmJhc2hyYwplY2hvICJjb21wbGV0ZSAtQyBhd3NfY29tcGxldGVyIGF3cyIgPj4gL2hvbWUvdWJ1bnR1Ly5iYXNocmMKCiMgY3JlYXRlIGRlZmF1bHQgYXdzIGNvbmZpZyBmb3Igcm9vdCBhbmQgdWJ1bnR1IHVzZXIKbWtkaXIgLXAgL3Jvb3QvLmF3cy8KbWtkaXIgLXAgL2hvbWUvdWJ1bnR1Ly5hd3MvCmVjaG8gIltkZWZhdWx0XSIgPiAvcm9vdC8uYXdzL2NvbmZpZwplY2hvICJyZWdpb24gPSB1cy1lYXN0LTEiID4+IC9yb290Ly5hd3MvY29uZmlnCmVjaG8gIiIgPj4gL3Jvb3QvLmF3cy9jb25maWcKY3AgIC9yb290Ly5hd3MvY29uZmlnIC9ob21lL3VidW50dS8uYXdzLwpjaG93biAtUiB1YnVudHU6dWJ1bnR1IC9ob21lL3VidW50dS8uYXdzCgpXRUJST09UPS91c3Ivc2hhcmUvbmdpbngvaHRtbC9hd3MtdHV0b3JpYWwKCmF3cyBzMyBjcCAtLXJlY3Vyc2l2ZSBzMzovL3N0YXRpYy5kb2FwcHMuY29tL2F3cy10dXRvcmlhbC8gJFdFQlJPT1QKCgojIGxheSBkb3duIGVsYiBzdGF0dXMgZmlsZQpjYXQgPDwgRU9GID4gL3Vzci9zaGFyZS9uZ2lueC9odG1sL2VsYl9zdGF0dXMuaHRtbAo8IWRvY3R5cGUgaHRtbD48aHRtbCBsYW5nPSJlbiI+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjx0aXRsZT5vazwvdGl0bGU+PC9oZWFkPjxib2R5Pm9rPC9ib2R5PjwvaHRtbD4KRU9GCgojIGxheSBkb3duIGVsYiBzdGF0dXMgY29uZmlnCmNhdCA8PCBFT0YgPiAvZXRjL25naW54L3NpdGVzLWVuYWJsZWQvZWxiX3N0YXR1cwpzZXJ2ZXIgewogIGxpc3RlbiA4MTsKICByb290IC91c3Ivc2hhcmUvbmdpbngvaHRtbDsKfQpFT0YKCiMgbGF5IGRvd24gd2Vicm9vdCBjb25maWcKbWtkaXIgLXAgJFdFQlJPT1QKY2F0IDw8IEVPRiA+IC9ldGMvbmdpbngvc2l0ZXMtZW5hYmxlZC9hd3MtdHV0b3JpYWwKc2VydmVyIHsKIGxpc3RlbiA4MCBkZWZhdWx0X3NlcnZlcjsKIHJvb3QgJFdFQlJPT1Q7CgppbmRleCBpbmRleC5odG1sOwoKICAjIFBhc3MgdGhlIFBIUCBzY3JpcHRzIHRvIEZhc3RDR0kgc2VydmVyCiAgbG9jYXRpb24gfiogXC5waHAkIHsKICAgIGZhc3RjZ2lfcGFzcyB1bml4Oi92YXIvcnVuL3BocDUtZnBtLnNvY2s7CiAgICBmYXN0Y2dpX2luZGV4IGluZGV4LnBocDsKICAgIGZhc3RjZ2lfaW50ZXJjZXB0X2Vycm9ycyBvbjsgIyB0byBzdXBwb3J0IDQwNHMgZm9yIFBIUCBmaWxlcyBub3QgZm91bmQKICAgIGluY2x1ZGUgZmFzdGNnaV9wYXJhbXM7CiAgfQp9CkVPRgoKIyByZW1vdmUgbmdpbnggZGVmYXVsdCBjb25maWcKcm0gL2V0Yy9uZ2lueC9zaXRlcy1lbmFibGVkL2RlZmF1bHQKIyByZXN0YXJ0IG5naW54CnNlcnZpY2UgbmdpbnggcmVzdGFydAo=
+```
+Which is the base64 from below
+```
+#!/bin/bash
+
+# install php and nginx
+apt-get install --assume-yes --force-yes nginx-full php5-fpm php5-cli php5-curl python-pip
+
+# install aws cli
+pip install awscli
+
+# install auto-completer for aws
+echo "complete -C aws_completer aws" >> /root/.bashrc
+echo "complete -C aws_completer aws" >> /home/ubuntu/.bashrc
+
+# create default aws config for root and ubuntu user
+mkdir -p /root/.aws/
+mkdir -p /home/ubuntu/.aws/
+echo "[default]" > /root/.aws/config
+echo "region = us-east-1" >> /root/.aws/config
+echo "" >> /root/.aws/config
+cp  /root/.aws/config /home/ubuntu/.aws/
+chown -R ubuntu:ubuntu /home/ubuntu/.aws
+
+WEBROOT=/usr/share/nginx/html/aws-tutorial
+
+aws s3 cp --recursive s3://static.doapps.com/aws-tutorial/ $WEBROOT
+
+
+# lay down elb status file
+cat << EOF > /usr/share/nginx/html/elb_status.html
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>ok</title></head><body>ok</body></html>
+EOF
+
+# lay down elb status config
+cat << EOF > /etc/nginx/sites-enabled/elb_status
+server {
+  listen 81;
+  root /usr/share/nginx/html;
+}
+EOF
+
+# lay down webroot config
+mkdir -p $WEBROOT
+cat << EOF > /etc/nginx/sites-enabled/aws-tutorial
+server {
+ listen 80 default_server;
+ root $WEBROOT;
+
+index index.html;
+
+  # Pass the PHP scripts to FastCGI server
+  location ~* \.php$ {
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    fastcgi_intercept_errors on; # to support 404s for PHP files not found
+    include fastcgi_params;
+  }
+}
+EOF
+
+# remove nginx default config
+rm /etc/nginx/sites-enabled/default
+# restart nginx
+service nginx restart
+```
