@@ -74,7 +74,10 @@ require 'Vendor/autoload.php';
 use Aws\Common\Aws;
 
 try {
-	$tableName = 'test-hello-aws';
+	$hostname = $_SERVER['HTTP_HOST'];
+	$dash = strpos($hostname, "-");
+	$prefix = substr($hostname, 0, $dash);
+	$tableName = $prefix . '-hello-aws';
 	$tableStatus = getTableStatus ( $tableName );
 	echo $tableName . ' is ' . $tableStatus;
 } catch ( \Exception $e ) {
