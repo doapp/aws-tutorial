@@ -20,10 +20,10 @@ echo "" >> /root/.aws/config
 cp  /root/.aws/config /home/ubuntu/.aws/
 chown -R ubuntu:ubuntu /home/ubuntu/.aws
 
+BUCKET=<insert your bucket here>
 WEBROOT=/usr/share/nginx/html/aws-tutorial
 
-aws s3 cp --recursive s3://static.doapps.com/aws-tutorial/ $WEBROOT
-
+aws s3 cp --recursive s3://$BUCKET/aws-tutorial/ $WEBROOT
 
 # lay down elb status file
 cat << EOF > /usr/share/nginx/html/elb_status.html
