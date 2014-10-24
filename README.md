@@ -301,7 +301,7 @@ aws s3 cp --recursive webroot_form/ s3://<bucket from above>/aws-tutorial/
 1. Create a new cloudformation stack with the S3 template url below
 https://s3.amazonaws.com/static.doapps.com/cloud_formation/app_install.json
 1. Copy the script below to your local filesystem and replace <insert your bucket here> in the script below with the bucket you created earlier.
-```
+
 Which is the base64 from below
 ```
 #!/bin/bash
