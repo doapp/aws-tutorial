@@ -8,6 +8,8 @@ Hello AWS
 Cloud Formation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html
 AMI Finder: http://cloud-images.ubuntu.com/locator/ec2/
 
+User Data script is installed in the instance at: /var/lib/cloud/instance/scripts/part-001
+
 ## Setup Steps
 1. Login to EC2 Key-Pair console: https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:sort=keyName
 1. Click on "Create Key Pair"
